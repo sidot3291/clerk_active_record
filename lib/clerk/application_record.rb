@@ -1,7 +1,6 @@
 module Clerk
   class ApplicationRecord < ActiveRecord::Base
     self.abstract_class = true
-    puts "Establish connection to #{ENV["CLERK_DATABASE_URL"]}"
     establish_connection ENV["CLERK_DATABASE_URL"]
     def self.clerk_table_name(table_name)
       "#{table_name}_01"

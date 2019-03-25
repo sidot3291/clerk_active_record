@@ -34,7 +34,7 @@
   end
 
   def _create_record(*args, &block)
-    if defined?(self.class.clerk_persistence_path)
+    if defined?(self.class.clerk_persistence_path) and !self.class.clerk_persistence_path.nil?
       _clerk_create_record(*args, &block)
     else
       _original_create_record(*args, &block)

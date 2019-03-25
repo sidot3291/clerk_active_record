@@ -5,9 +5,18 @@ module Clerk
   
     belongs_to :account, class_name: "Clerk::Account"
 
+    # We need to migrate roles over to the new persistence strategy
+    def self.clerk_persistence_path
+      nil
+    end
+ 
+    def self.clerk_persistence_api
+      nil
+    end    
+
     def self._insert_record(values)
       begin 
-        response = Clerk.api.post('/roles', values)
+        response = Clerk::ApplicationRecord.clerk_persistence_api.post('/roles', values)
         id = JSON.parse(response.body)["id"]
       rescue
         raise Clerk::Errors::ClerkServerError.new("Failed to save the role", self)
